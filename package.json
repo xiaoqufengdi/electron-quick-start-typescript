@@ -1,6 +1,6 @@
 {
   "name": "electron-quick-start-typescript",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A minimal Electron application written with Typescript",
   "main": "./dist/main.js",
   "scripts": {
@@ -12,20 +12,38 @@
   },
   "build": {
     "productName": "electron-demo",
+    "publish": [{
+      "provider": "generic",
+      "url": ""
+    }],
     "appId": "my.electron",
+    "directories": {
+      "output": "build"
+    },
     "mac": {
       "category": "your.app.category.type",
       "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis", "zip"]
     },
     "files": [
       "./index.html",
       "./dist/main.js",
       "./dist/preload.js",
+      "./dist/renderer.js",
       "./package.json",
       "dist/electron/**/*"
     ],
-    "win": {
-      "target": ["nsis", "zip"]
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "include": "./build/include.nsh"
     }
   },
   "repository": "https://github.com/electron/electron-quick-start-typescript",

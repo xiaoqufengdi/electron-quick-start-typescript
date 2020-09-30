@@ -69,8 +69,8 @@ window.addEventListener("online", updateIndicator);
 window.addEventListener("offline", updateIndicator);
 updateIndicator();
 
-setTimeout(()=>{
+/*setTimeout(()=>{
     var n = new Notification('状态更新提醒',{
         body: '你的朋友圈有3条新状态，快去查看吧electron'
     })
-}, 3000);
+}, 3000);*/
