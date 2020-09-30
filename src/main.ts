@@ -7,6 +7,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
+      enableRemoteModule: true
     },
     width: 800,
   });
@@ -16,6 +18,8 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  app.setAppUserModelId("my.electron")
 }
 
 // This method will be called when Electron has finished
