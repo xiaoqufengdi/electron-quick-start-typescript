@@ -1,4 +1,5 @@
-const { dialog, ipcRenderer } = require("electron").remote;
+const { dialog, } = require("electron").remote;
+const { ipcRenderer } = require("electron");
 
 let version = window.location.hash.substring(1);
 document.getElementById('version').innerText = version;

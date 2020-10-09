@@ -1,0 +1,37 @@
+directories:
+  output: build
+  buildResources: build
+productName: electron-demo
+publish:
+  - provider: generic
+    url: ''
+appId: my.electron
+mac:
+  category: your.app.category.type
+  target:
+    - dmg
+    - zip
+win:
+  target:
+    - nsis
+    - zip
+files:
+  - filter:
+      - ./index.html
+      - ./dist/main.js
+      - ./dist/preload.js
+      - ./dist/renderer.js
+      - ./dist/main
+      - ./dist/renderer
+      - ./package.json
+      - dist/electron/**/*
+nsis:
+  oneClick: false
+  perMachine: true
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  runAfterFinish: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  include: ./include.nsh
+electronVersion: 9.0.4
