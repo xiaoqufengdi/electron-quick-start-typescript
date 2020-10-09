@@ -25,3 +25,10 @@
       "./package.json",
       "dist/electron/**/*"
     ],
+    
+        "module": "commonjs",
+        
+查看文件
+asar list app.asar
+解压文件
+asar extract app.asar ./myapp

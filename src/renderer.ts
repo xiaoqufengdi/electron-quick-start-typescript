@@ -5,11 +5,16 @@
 // Use preload.js to selectively enable features
 // needed in the renderer process.
 
-// @ts-ignore
-const  {dialog, Notification: _Notification } = require("electron").remote;
 
+const { ipcRenderer } = require("electron");
 
-// console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
+const  { Notification: _Notification, dialog } = require("electron").remote;
+const packageInfo = require("./package.json");
+console.log(packageInfo);
+console.log(dialog);
+
+// import checkForUpdate from "./renderer/updaterVersionDialog";
+
 /**
  * @method updateIndicator
  */
@@ -46,7 +51,7 @@ function notice(isOnline: boolean):void{
         let options = {
             "title": "当前网络状态",
             "body":  isOnline ? '已连接':'已断开'
-        }
+        };
 
         let myNotice = new _Notification(options);
         myNotice.show();
@@ -69,8 +74,100 @@ window.addEventListener("online", updateIndicator);
 window.addEventListener("offline", updateIndicator);
 updateIndicator();
 
-/*setTimeout(()=>{
-    var n = new Notification('状态更新提醒',{
-        body: '你的朋友圈有3条新状态，快去查看吧electron'
-    })
-}, 3000);*/
+
+/*********************************自动更新部分代码*******************************************************/
+document.getElementById('version').innerText = packageInfo.version;
+
+ipcRenderer.on("message", (event, text)=>{
+    console.log(text);
+    let container = document.getElementById('messages');
+    let message = document.createElement('div');
+    message.innerHTML = text;
+    container.appendChild(message);
+
+    if (_Notification.isSupported()) {
+        let options = {
+            "title": "更新消息",
+            "body":  text
+        };
+
+        let myNotice = new _Notification(options);
+        myNotice.show();
+
+    }else{
+        console.log("当前系统不支持 Notification");
+    }
+});
+
+
+let downloadPercent: number = 0;
+interface ShowMessageOptions{
+    readonly type: string,
+    readonly title: string,
+    readonly message: string,
+    readonly buttons: Array<string>
+}
+
+ipcRenderer.on("downloadProgress", (event, progressObj)=>{
+    console.log(progressObj);
+    downloadPercent = progressObj.percent || 0;
+    console.log(downloadPercent);
+});
+
+ipcRenderer.on("startDownload",(event, info)=>{
+    console.log("startDownload");
+    console.log(info);
+    // alert("startDownload");  //在具体项目中使用对话框决定是否下载
+    // ipcRenderer.send("startDownload");
+    let options: ShowMessageOptions = {
+        type: "info",
+        title: "软件更新",
+        message: `检测到新版本${info.version},是否下载更新`,
+        buttons:["确定", "取消"]
+    };
+
+    dialog.showMessageBox(options).then( (res)=>{
+        console.log(res);
+        if (res.response === 0)
+        {
+            console.log("开始下载");
+            ipcRenderer.send("startDownload");
+        }else{
+            console.log("已经取消下载");
+        }
+    });
+});
+
+
+ipcRenderer.on("isUpdateNow", () =>{
+    console.log("isUpdateNow");
+    ipcRenderer.send("isUpdateNow");
+    /*    const options = {
+        type: "info",
+        title: "软件更新",
+        message: "是否现在更新",
+        buttons:["确定", "取消"]
+      };
+      dialog.showMessageBox(options).then(  (res)=>{
+          console.log( res);
+          if (res.response === 0) {
+              console.log("开始更新");
+              //some code here to handle event
+              ipcRenderer.send("isUpdateNow");
+          }
+      });*/
+});
+
+
+
+
+
+
+
+function checkForUpdate():void {
+    console.log("checkForUpdate");
+    ipcRenderer.send("checkForUpdate");
+}
+
+//检查更新
+ checkForUpdate();

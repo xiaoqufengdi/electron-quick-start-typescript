@@ -1,6 +1,6 @@
 {
   "name": "electron-quick-start-typescript",
-  "version": "1.1.1",
+  "version": "2.1.0",
   "description": "A minimal Electron application written with Typescript",
   "main": "./dist/main.js",
   "scripts": {
@@ -32,6 +32,8 @@
       "./dist/main.js",
       "./dist/preload.js",
       "./dist/renderer.js",
+      "./dist/main",
+      "./dist/renderer",
       "./package.json",
       "dist/electron/**/*"
     ],
@@ -43,7 +45,7 @@
       "runAfterFinish": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "include": "./build/include.nsh"
+      "include": "./include.nsh"
     }
   },
   "repository": "https://github.com/electron/electron-quick-start-typescript",
