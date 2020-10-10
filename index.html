@@ -6,12 +6,16 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
+      content="default-src *; script-src 'self'; img-src * 'self' data: http:;"
+    />   <!-- 允许图片从其他地方加载 -->
     <meta
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+<!--    <meta http-equiv ="Content-Security-Policy" content = " img-src '*'  data:http:;   "/>
+    <meta http-equiv="Content-Security-Policy" content="default-src *;
+   img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *">-->
   </head>
   <body>
     <div>
@@ -20,12 +24,18 @@
     <p>current version:  <span id="version">vX.Y.Z</span></p>
     <div id="messages"></div>
 
+    <button id="btn">
+      打开新窗口
+    </button>
     <p>
       We are using Node.js <span id="node-version"></span>, Chromium
       <span id="chrome-version"></span>, and Electron
       <span id="electron-version"></span>.
 
     </p>
+    <img src="http://127.0.0.1:8080/2.jpeg" alt="图片">
+    <img src="./dist/static/images/1.jpeg" alt="图片2">
+
 
     <!-- You can also require other files to run in this process -->
     <script src="./dist/renderer.js"></script>

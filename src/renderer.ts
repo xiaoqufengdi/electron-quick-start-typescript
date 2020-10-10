@@ -171,3 +171,11 @@ function checkForUpdate():void {
 
 //检查更新
  checkForUpdate();
+
+
+
+/**************************离线存储******************************/
+document.querySelector("#btn").addEventListener("click", function () {
+    ipcRenderer.send("openWindow");
+
+}, false);

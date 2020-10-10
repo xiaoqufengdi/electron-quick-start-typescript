@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import updateHandle from "./main/updateVersion"
 
@@ -52,3 +52,21 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+
+//打开新窗口
+let win: BrowserWindow | null = null;
+ipcMain.on("openWindow", function (event ) {
+    win = new BrowserWindow({
+        width: 400,
+        height: 300,
+        webPreferences:{
+            nodeIntegration: true,
+            enableRemoteModule: true
+        }
+    });
+
+    // win.loadURL(path.join( __dirname, "./renderer/news.html"))
+    win.loadURL("http://127.0.0.1:8080/news.html");
+    win.webContents.openDevTools();
+});
