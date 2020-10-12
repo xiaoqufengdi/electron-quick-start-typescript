@@ -1,6 +1,6 @@
 {
   "name": "electron-quick-start-typescript",
-  "version": "2.1.0",
+  "version": "1.6.0",
   "description": "A minimal Electron application written with Typescript",
   "main": "./dist/main.js",
   "scripts": {
@@ -12,20 +12,28 @@
   },
   "build": {
     "productName": "electron-demo",
-    "publish": [{
-      "provider": "generic",
-      "url": ""
-    }],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": ""
+      }
+    ],
     "appId": "my.electron",
     "directories": {
       "output": "build"
     },
     "mac": {
       "category": "your.app.category.type",
-      "target": ["dmg", "zip"]
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
-      "target": ["nsis", "zip"]
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "files": [
       "./index.html",
@@ -36,7 +44,9 @@
       "./dist/renderer",
       "./dist/static",
       "./package.json",
-      "dist/electron/**/*"
+      "dist/electron/**/*",
+      "./service-worker.js",
+      "./service-entry.js"
     ],
     "nsis": {
       "oneClick": false,
@@ -63,8 +73,11 @@
   "devDependencies": {
     "electron": "^9.0.4",
     "electron-builder": "^22.8.1",
+    "ts-loader": "^8.0.4",
     "tslint": "^6.1.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0"
   },
   "dependencies": {
     "electron-updater": "^4.3.5"

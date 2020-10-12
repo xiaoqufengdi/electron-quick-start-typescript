@@ -7,9 +7,12 @@
 
 
 const { ipcRenderer } = require("electron");
-
 const  { Notification: _Notification, dialog } = require("electron").remote;
 const packageInfo = require("./package.json");
+// import register from "./service-worker";
+// const sw = require("./service-worker");
+
+
 console.log(packageInfo);
 console.log(dialog);
 
@@ -177,5 +180,6 @@ function checkForUpdate():void {
 /**************************离线存储******************************/
 document.querySelector("#btn").addEventListener("click", function () {
     ipcRenderer.send("openWindow");
-
 }, false);
+
+

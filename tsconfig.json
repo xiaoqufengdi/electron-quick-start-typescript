@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "module": "umd",
     "noImplicitAny": true,
     "sourceMap": false,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom", "es5"]
   },
   "include": [
     "src/**/*"

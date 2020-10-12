@@ -32,3 +32,8 @@
 asar list app.asar
 解压文件
 asar extract app.asar ./myapp
+
+安装webpack
+npm install webpack webpack-cli -D
+安装ts-loader
+npm install ts-loader -D
